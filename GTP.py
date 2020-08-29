@@ -1,6 +1,4 @@
 # Get as much as info as possible
-# Keep in array or db
-# Iterate and do string concatenation, all possibilities
 # Save to txt file
 # Additionally add to chosen dictionary for brute force attacks
 
@@ -29,32 +27,13 @@ print("Now I ask you many questions to guess all possible password that is easy 
       "\n"
       "NOTE!")
 
-print("QUESTIONS ABOUT THE VICTIM\n")
-Name = input(" the victim name:\n")
-Endearment = input("Victim endearment name?")
-FamilyName = input("Victim family name:\n")
-BirthYear = input("Victim birth year:\n")
-BirthMonth = input("Victim birth month:\n")
-BirthDay = input("Victim birth day:\n")
 
-HasPet = input("Does the victim has pet?(Y/N)\n")
-#if
-PetName = input(" the victim pet name:\n")
-
-HasPartner = input("Does the victim has partner or spouse?(Y/N)\n")
-#if
-PartnerName = input("Victim partner or spouse name:\n")
-PartnerEndearment = input("Victim endearment name?")
-PartnerBirthYear = input("Victim partner birth year:\n")
-PartnerBirthMonth = input("Victim partner birth month:\n")
-PartnerBirthDay = input("Victim partner birth day:\n")
-
-def build(list, w, l, length):
+def build(list, w, i, length):
     if w == 0:
-        print(l)
+        print(i)
         return
     for j in range(0, length):
-        concatenate = l + list[j]
+        concatenate = i + list[j]
         build(list, w - 1, concatenate, length)
     return
 
@@ -64,6 +43,39 @@ def conjecture(list, length):
         build(list, w, "", length)
 
 
-list = ['george', '25', 'dude']
-length = len(list)
-conjecture(list, length)
+def validator(answer):
+    if answer == 'Y' or answer == 'y' or answer == 'yes' or answer == 'YES' or answer == 'Yes':
+        return True
+    else:
+        return False
+
+
+details = []
+print("QUESTIONS ABOUT THE VICTIM...\n")
+details.append(input("Victim name:\n"))
+details.append(input("Victim endearment name?\n"))
+details.append(input("Victim family name:\n"))
+details.append(input("Victim birth year:\n"))
+details.append(input("Victim birth month:\n"))
+details.append(input("Victim birth day:\n"))
+
+HasPet = input("Does the victim has pet?(Y/N)\n")
+if validator(HasPet):
+    details.append(input(" the victim pet name:\n"))
+
+HasPartner = input("Does the victim has partner or spouse?(Y/N)\n")
+if validator(HasPartner):
+    details.append(input("Victim partner or spouse name:\n"))
+    details.append(input("Victim endearment name?"))
+    details.append(input("Victim partner birth year:\n"))
+    details.append(input("Victim partner birth month:\n"))
+    details.append(input("Victim partner birth day:\n"))
+
+for value in details:
+    if value == "":
+        print("Skipped")
+    else:
+        print(value)
+
+length = len(details)
+conjecture(details, length)
