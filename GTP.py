@@ -25,23 +25,45 @@ print(RedTextColor + "NOTE THAT THIS SCRIPT IS ONLY MADE FOR EDUCATIONAL PURPOSE
 print("Now I ask you many questions to guess all possible password that is easy for the victim to remember. "
       "Simply press ENTER to skip a question if:\n"
       "- Don't know the answer...\n"
-      "- Is inappropriate or not relevant\n")
+      "- Is inappropriate or not relevant\n"
+      "\n"
+      "NOTE!")
 
 print("QUESTIONS ABOUT THE VICTIM\n")
-Name = input("Please enter the victim name:\n")
-FamilyName = input("Please enter the victim family name:\n")
-BirthYear = input("Please enter the victim birth year:\n")
-BirthMonth = input("Please enter the victim birth month:\n")
-BirthDay = input("Please enter the victim birth day:\n")
+Name = input(" the victim name:\n")
+Endearment = input("Victim endearment name?")
+FamilyName = input("Victim family name:\n")
+BirthYear = input("Victim birth year:\n")
+BirthMonth = input("Victim birth month:\n")
+BirthDay = input("Victim birth day:\n")
 
 HasPet = input("Does the victim has pet?(Y/N)\n")
 #if
-PetName = input("Please enter the victim pet name:\n")
+PetName = input(" the victim pet name:\n")
 
 HasPartner = input("Does the victim has partner or spouse?(Y/N)\n")
 #if
-PartnerName = input("Please enter the victim's partner or spouse name:\n")
-PartnerBirthYear = input("Please enter the victim partner birth year:\n")
-PartnerBirthMonth = input("Please enter the victim partner birth month:\n")
-PartnerBirthDay = input("Please enter the victim partner birth day:\n")
+PartnerName = input("Victim partner or spouse name:\n")
+PartnerEndearment = input("Victim endearment name?")
+PartnerBirthYear = input("Victim partner birth year:\n")
+PartnerBirthMonth = input("Victim partner birth month:\n")
+PartnerBirthDay = input("Victim partner birth day:\n")
 
+def build(list, w, l, length):
+    if w == 0:
+        print(l)
+        return
+    for j in range(0, length):
+        concatenate = l + list[j]
+        build(list, w - 1, concatenate, length)
+    return
+
+
+def conjecture(list, length):
+    for w in range(1, length + 1):
+        build(list, w, "", length)
+
+
+list = ['george', '25', 'dude']
+length = len(list)
+conjecture(list, length)
