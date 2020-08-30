@@ -1,6 +1,12 @@
-# Get as much as info as possible
-# Save to txt file
 # Additionally add to chosen dictionary for brute force attacks
+import sys
+
+toolbar_width = 40
+
+# setup a toolbar
+sys.stdout.write("[%s]" % (" " * toolbar_width))
+sys.stdout.flush()
+sys.stdout.write("\b" * (toolbar_width+1)) # return to start of line, after '['
 
 BoldText = '\033[1m'
 RedTextColor = '\033[31m'
@@ -16,21 +22,27 @@ print(" \\____|   |_|   |_|\n" + ResetColor)
 print("WELCOME TO GUESS THE PASS\n")
 print("Author: " + GreenTextColor + "Ahmadreza Vakil" + ResetColor)
 
-print(RedTextColor + "NOTE THAT THIS SCRIPT IS ONLY MADE FOR EDUCATIONAL PURPOSES!"
+print(RedTextColor + "\nNOTE THAT THIS SCRIPT IS ONLY MADE FOR EDUCATIONAL PURPOSES!"
                      "\nDO NOT USE THIS SCRIPT FOR NASTY PURPOSES.\n"
                      "DON'T FORGET TO GIVE ME CREDIT!\n" + ResetColor)
 
-print("Now I ask you many questions to guess all possible password that is easy for the victim to remember. "
+print("Now I ask you some questions to guess all possible password that is easy for the victim to remember. "
       "Simply press ENTER to skip a question if:\n"
       "- Don't know the answer...\n"
       "- Is inappropriate or not relevant\n"
       "\n"
-      "NOTE!")
+      "NOTE! Less input is equal to shorter length of the guessed password.")
+
+fileName = input("Enter the dictionary name to create:\n")
+if fileName == "" or fileName == " ":
+    fileName = "dictionary"
 
 
 def build(list, w, i, length):
+    f = open(fileName + ".txt", "a")
     if w == 0:
-        print(i)
+        # print(i)
+        f.write(i+"\n")
         return
     for j in range(0, length):
         concatenate = i + list[j]
@@ -39,8 +51,12 @@ def build(list, w, i, length):
 
 
 def conjecture(list, length):
+    print("\nPlease wait...")
     for w in range(1, length + 1):
         build(list, w, "", length)
+        sys.stdout.write(".")
+        sys.stdout.flush()
+    sys.stdout.write("\nDone!\nDictionary is created!\n") # this ends the progress bar
 
 
 def validator(answer):
@@ -50,32 +66,27 @@ def validator(answer):
         return False
 
 
-details = []
 print("QUESTIONS ABOUT THE VICTIM...\n")
-details.append(input("Victim name:\n"))
-details.append(input("Victim endearment name?\n"))
-details.append(input("Victim family name:\n"))
-details.append(input("Victim birth year:\n"))
-details.append(input("Victim birth month:\n"))
-details.append(input("Victim birth day:\n"))
+questions = ['Victim name:', 'Victim endearment name:', 'Victim family name:', 'Victim birth year:',
+             'Victim birth month:', 'Victim birth day:']
 
 HasPet = input("Does the victim has pet?(Y/N)\n")
 if validator(HasPet):
-    details.append(input(" the victim pet name:\n"))
+    questions.extend(['Victim pet name:'])
 
 HasPartner = input("Does the victim has partner or spouse?(Y/N)\n")
 if validator(HasPartner):
-    details.append(input("Victim partner or spouse name:\n"))
-    details.append(input("Victim endearment name?"))
-    details.append(input("Victim partner birth year:\n"))
-    details.append(input("Victim partner birth month:\n"))
-    details.append(input("Victim partner birth day:\n"))
+    questions.extend(['Victim partner or spouse name:', 'Victim partner endearment name', 'Victim endearment name?'
+                      'Victim partner birth month:', 'Victim partner birth day:'])
 
-for value in details:
-    if value == "":
-        print("Skipped")
-    else:
-        print(value)
+raw_details = []
+for question in questions:
+    raw_details.append(input(question+"\n"))
+
+details = []
+for value in raw_details:
+    if value != "":
+        details.append(value)
 
 length = len(details)
 conjecture(details, length)
