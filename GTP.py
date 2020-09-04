@@ -11,7 +11,7 @@ GreenTextColor = '\033[32m'
 YellowTextColor = '\033[33m'
 ResetColor = '\033[m'
 
-print(YellowTextColor + BoldText + " ____   _____   ____")
+print(YellowTextColor + BoldText + "  ____   _____   ____")
 print(" / ___| |_   _| |  _ \\")
 print("| |  _    | |   | |_) |")
 print("| |_| |   | |   |  __/")
