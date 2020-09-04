@@ -1,12 +1,9 @@
-# Additionally add to chosen dictionary for brute force attacks
 import sys
 
 toolbar_width = 40
 
-# setup a toolbar
-sys.stdout.write("[%s]" % (" " * toolbar_width))
 sys.stdout.flush()
-sys.stdout.write("\b" * (toolbar_width+1)) # return to start of line, after '['
+sys.stdout.write("\b" * (toolbar_width+1))
 
 BoldText = '\033[1m'
 RedTextColor = '\033[31m'
@@ -14,7 +11,7 @@ GreenTextColor = '\033[32m'
 YellowTextColor = '\033[33m'
 ResetColor = '\033[m'
 
-print(YellowTextColor + BoldText + "  ____   _____   ____")
+print(YellowTextColor + BoldText + " ____   _____   ____")
 print(" / ___| |_   _| |  _ \\")
 print("| |  _    | |   | |_) |")
 print("| |_| |   | |   |  __/")
@@ -41,7 +38,6 @@ if fileName == "" or fileName == " ":
 def build(list, w, i, length):
     f = open(fileName + ".txt", "a")
     if w == 0:
-        # print(i)
         f.write(i+"\n")
         return
     for j in range(0, length):
@@ -56,7 +52,7 @@ def conjecture(list, length):
         build(list, w, "", length)
         sys.stdout.write(".")
         sys.stdout.flush()
-    sys.stdout.write("\nDone!\nDictionary is created!\n") # this ends the progress bar
+    sys.stdout.write("\nDone!\nDictionary is created!\n")
 
 
 def validator(answer):
